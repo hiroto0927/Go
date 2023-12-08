@@ -24,5 +24,5 @@ func main() {
 
 // ハンドラーを定義
 func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "HelloWorld!")
+	return c.String(http.StatusOK, "Hello, World!")
 }
