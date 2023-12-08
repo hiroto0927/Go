@@ -6,7 +6,6 @@
 	"service": "devcontainer",
 	"workspaceFolder": "/workspace",
 	"shutdownAction": "stopCompose",
-  
 	"features": {
 	  "ghcr.io/devcontainers/features/docker-in-docker:1": {}
 	},
@@ -18,12 +17,15 @@
 		],
 		"settings": {
 			"terminal.integrated.shell.linux": "/bin/sh",
-        	"go.gopath": "/go",
-        	"go.inferGopath": true,
-        	"go.useLanguageServer": true,
-    		"[go]": {
-      			"editor.formatOnSave": true
-    		}
+			"go.toolsManagement.checkForUpdates": "off",
+			"go.gopath": "/go",
+			"go.gocodeAutoBuild": true,
+			"go.formatTool": "gofmt",
+			"go.useLanguageServer": true,
+			"editor.formatOnSave": false,
+			"[go]": {
+			"editor.formatOnSave": true
+			}
 		}
 	  }
 	}
