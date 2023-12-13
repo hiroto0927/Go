@@ -1,6 +1,11 @@
 package main
 
 import (
+	"myapp/database"
+	"myapp/infrastructure/persistence"
+	"myapp/interfaces/adapter"
+	interfaces "myapp/interfaces/handler"
+	"myapp/usecase"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -15,7 +20,12 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.GET("/", hello)
-	e.GET("/users/:id", getUser)
+
+	db := database.ConnectDB()
+	userRepository := persistence.NewUserPersistence(db)
+	userUseCase := usecase.NewUserUsecase(userRepository)
+	userHandler := interfaces.NewUserHandler(userUseCase)
+	adapter.InitUserAdapter(e, userHandler)
 
 	e.Logger.Fatal(e.Start(":4000"))
 }
@@ -23,25 +33,4 @@ func main() {
 // ハンドラーを定義
 func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
-}
-
-type User struct {
-	ID   string  `json:"id"`
-	Name *string `json:"name"`
-}
-
-func getUser(c echo.Context) error {
-	id := c.Param("id")
-	name := c.QueryParam("name")
-
-	if name == "" {
-		name = "anonymous"
-	}
-
-	user := User{
-		ID:   id,
-		Name: &name,
-	}
-
-	return c.JSON(http.StatusOK, user)
 }

@@ -9,7 +9,7 @@ import (
 type DBConfig struct {
 	Host     string
 	Port     string
-	User     string
+	UserName string
 	Password string
 	DBName   string
 }
@@ -22,7 +22,7 @@ func NewDBConfig() *DBConfig {
 	dbConfig := new(DBConfig)
 	dbConfig.Host = os.Getenv("HOST")
 	dbConfig.Port = os.Getenv("PORT")
-	dbConfig.User = os.Getenv("USER")
+	dbConfig.UserName = os.Getenv("USER_NAME")
 	dbConfig.Password = os.Getenv("PASSWORD")
 	dbConfig.DBName = os.Getenv("DB")
 	return dbConfig
